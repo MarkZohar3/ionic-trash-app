@@ -1,0 +1,7 @@
+{
+  "name": "trashApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
