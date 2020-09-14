@@ -18,22 +18,28 @@
   <ion-card-title style="padding:15px" class="ion-text-start">My contributions</ion-card-title>
 
   <ion-list>
-    <ion-label stacked></ion-label>
+    <ion-item-sliding>
+      <ion-item>
+      <ion-label style="font-weight: bold;" >Description</ion-label>
+      <ion-label style="font-weight: bold;" class="ion-text-center"> Type</ion-label>
+      <ion-label style="font-weight: bold;" class="ion-text-end">Date</ion-label>
+    </ion-item>
+    </ion-item-sliding>
     <ion-item-sliding *ngFor="let trash of trashes" >
       <ion-item *ngIf="currentUserId==trash.userIdRecorded && currentUserId==trash.userIdCleaned"  >
         <ion-label>{{trash.descriptionRecorded}}</ion-label>     
-        <ion-label>Cleaned and recorded</ion-label>     
-        <ion-label item-right>{{ trash.dateRecorded.fulldate.seconds * 1000 | date:'dd-MM-yyyy HH:mm' }}</ion-label>    
+        <ion-label class="ion-text-center">Cleaned and recorded</ion-label>     
+        <ion-label class="ion-text-end">{{ trash.dateRecorded.fulldate.seconds * 1000 | date:'dd-MM-yyyy HH:mm' }}</ion-label>    
       </ion-item>
       <ion-item *ngIf="currentUserId==trash.userIdRecorded && currentUserId!=trash.userIdCleaned"  >
         <ion-label>{{trash.descriptionRecorded}}</ion-label>     
-        <ion-label>Recorded</ion-label>     
-        <ion-label item-right>{{ trash.dateRecorded.fulldate.seconds * 1000 | date:'dd-MM-yyyy HH:mm' }}</ion-label>    
+        <ion-label class="ion-text-center">Recorded</ion-label>     
+        <ion-label class="ion-text-end">{{ trash.dateRecorded.fulldate.seconds * 1000 | date:'dd-MM-yyyy HH:mm' }}</ion-label>    
       </ion-item>
       <ion-item *ngIf="currentUserId!=trash.userIdRecorded && currentUserId==trash.userIdCleaned"  >
         <ion-label>{{trash.descriptionRecorded}}</ion-label>     
-        <ion-label>Cleaned</ion-label>     
-        <ion-label item-right>{{ trash.dateRecorded.fulldate.seconds * 1000 | date:'dd-MM-yyyy HH:mm' }}</ion-label>    
+        <ion-label class="ion-text-center">Cleaned</ion-label>     
+        <ion-label class="ion-text-end">{{ trash.dateRecorded.fulldate.seconds * 1000 | date:'dd-MM-yyyy HH:mm' }}</ion-label>    
       </ion-item>
         <ion-item-options side="end" (ionSwipe)="removeTrash(slidingItem,trash)">
           <ion-button (click)="removeTrash(slidingItem, trash)"

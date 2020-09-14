@@ -55,18 +55,18 @@ export class Tab2Page implements OnInit {
         this.thisMonthRecorded++
         if (trash.dateRecorded.day == date.getDate()) {
           this.thisDayRecorded++;
-          if (trash.dateRecorded.hour == date.getUTCHours()) {
+          if (trash.dateRecorded.hour == date.getHours()) {
             this.thisHourRecorded++;
           }
         }
       }
-
+      
       if (trash.dateCleaned != null) {
         if (trash.dateCleaned.month == date.getMonth() && trash.dateCleaned.year == date.getFullYear()) {
           this.thisMonthCleaned++
           if (trash.dateCleaned.day == date.getDate()) {
             this.thisDayCleaned++;
-            if (trash.dateCleaned.hour == date.getUTCHours()) {
+            if (trash.dateCleaned.hour == date.getHours()) {
               this.thisHourCleaned++;
             }
           }
