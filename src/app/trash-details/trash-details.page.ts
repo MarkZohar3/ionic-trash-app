@@ -99,17 +99,24 @@ export class TrashDetailsPage implements OnInit {
 
   btnRecordTrash(){
     let date : Date = new Date();
-    let datetime : dateTime = {year: date.getFullYear(), month: date.getMonth(), day: date.getDate(),hour: date.getHours(), minute: date.getMinutes(), second: date.getSeconds(), fulldate: date };
-    let trash : Trash = { $key: new Date().valueOf(), descriptionRecorded: this.desc, status: 'recorded', dateRecorded: datetime, 
-    userIdRecorded: firebase.auth().currentUser.uid, lat: this.lat, lng: this.lng, dateCleaned:null, descriptionCleaned:'',userIdCleaned:'' }
-    console.log(trash.descriptionRecorded + ', ' + trash.status);
+    let datetime : dateTime = {year: date.getFullYear(), 
+      month: date.getMonth(), day: date.getDate(),
+      hour: date.getHours(), minute: date.getMinutes(), 
+      second: date.getSeconds(), fulldate: date };
+    let trash : Trash = { $key: new Date().valueOf(), 
+      descriptionRecorded: this.desc, status: 'recorded', 
+      dateRecorded: datetime, userIdRecorded: firebase.auth().currentUser.uid, 
+      lat: this.lat, lng: this.lng, dateCleaned:null, 
+      descriptionCleaned:'',userIdCleaned:'' }
     this.addTrash(trash);
     this.router.navigate(['tabs']);
   }
 
   btnMarkCleaned(){
     let date : Date = new Date();
-    let datetime : dateTime = {year: date.getFullYear(), month: date.getMonth(), day: date.getDate(),hour: date.getHours(), minute: date.getMinutes(), second: date.getSeconds(), fulldate: date };
+    let datetime : dateTime = {year: date.getFullYear(), month: date.getMonth(), 
+      day: date.getDate(),hour: date.getHours(), minute: date.getMinutes(), 
+      second: date.getSeconds(), fulldate: date };
     this.trash.dateCleaned = datetime;
     this.trash.descriptionCleaned = this.desc;
     this.trash.userIdCleaned = firebase.auth().currentUser.uid;
@@ -133,11 +140,7 @@ export class TrashDetailsPage implements OnInit {
 
 
 
-  removeTrash(slidingItem: IonItemSliding, trash: any) {
-    trash.status = "removed";
-    this.fser.deleteTask(trash.$key);
-    slidingItem.close();
-  }
+
 
   takePicture() {
     /*this.platform.ready().then(() => {

@@ -39,6 +39,7 @@ export class LoginPage implements OnInit {
       ])),
     });
   }
+
   tryLogin(value) {
     this.authService.doLogin(value)
       .then(res => {
@@ -52,4 +53,5 @@ export class LoginPage implements OnInit {
   goRegisterPage() {
     this.router.navigate(["/register"]);
   }
+  
 }

@@ -58,7 +58,10 @@ username: new FormControl('', Validators.compose([
         console.log(res);
         this.errorMessage = "";
         this.successMessage = "Your account has been created. Please log in.";
-        let user:User = { userId: firebase.auth().currentUser.uid, username: value.username };     
+        let user:User = { 
+          userId: firebase.auth().currentUser.uid, 
+          username: value.username 
+        };     
         this.registerUser(user);
         this.authService.initUser(user);
       }, err => {
@@ -67,12 +70,16 @@ username: new FormControl('', Validators.compose([
         this.successMessage = "";
       });
   }
+
   goLoginPage() {
     this.router.navigate(["/login"]);
   }
 
   registerUser(user : User) {
-    let u: User = { userId: user.userId, username: user.username };
+    let u: User = { 
+      userId: user.userId, 
+      username: user.username 
+    };
     console.log(u);
     this.fser.createUser(u).then(resp => {
       console.log("createTask: then - " + resp);

@@ -21,26 +21,34 @@ export class Tab1Page {
   constructor(private router:Router, public fser: FirebaseService){}
 
   ionViewDidEnter() {
-    this.leafletMap();
+    this.defineIcons();
+    this.initMap();
+    this.locateUser();
+    this.mapClick();
+    this.getTrashes();
   }
 
-  leafletMap() {
-    this.defineIcons();
-    //INITIALIZE MAP
-    this.map = new Leaflet.Map('mapId2').setView([38.736946, -9.142685], 13);
 
+  locateUser(){
+    this.map.locate({setView:true, maxZoom: 16}).on("locationfound", (e: any)=> {
+      const marker = Leaflet.marker([e.latitude,e.longitude], { icon: this.locationIcon });
+      this.map.addLayer(marker);
+    });
+  }
+
+
+
+  initMap() {
+    this.map = new Leaflet.Map('mapId2').setView([38.736946, -9.142685], 13);
+    
     Leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(this.map);
 
-    //setTimeout(function(){ this.map.invalidateSize()}, 400);
-    
-    //LOCATE USER, BIND CLICK
-    this.map.locate({setView:true, maxZoom: 16}).on("locationfound", (e: any)=> {
-      const marker = Leaflet.marker([e.latitude,e.longitude], { icon: this.locationIcon });
-      this.map.addLayer(marker);
-    }).on("click", (e)=>{this.onMapClick(e)});
+  }
 
+
+  getTrashes(){
     //GET TRASHES 
     this.fser.getTrash().subscribe(data => {
       this.trashes = data.map(e => {
@@ -58,6 +66,11 @@ export class Tab1Page {
         };
       });
       console.log(this.trashes);
+      this.bindMarkersToTrashes();
+    });
+  }
+
+  bindMarkersToTrashes(){
 
       //LOAD MARKERS
       console.log("Adding " + this.trashes.length + " trashes");
@@ -79,7 +92,11 @@ export class Tab1Page {
         });
         this.map.addLayer(marker);
       }
-    });
+  }
+
+
+  mapClick(){
+    this.map.on("click", (e)=>{this.onMapClick(e)})
   }
 
   onMapClick(e) {
